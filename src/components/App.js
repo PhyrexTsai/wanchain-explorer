@@ -60,7 +60,7 @@ class App extends Component {
     }
 
     handSeachData=()=>{
-        const keydomain = this.state.searchValue.split(".wan");
+        const keydomain = this.state.searchValue.toLowerCase().split(".wan");
         if(keydomain[keydomain.length - 1] !== "") return this.handOpenWarning("WNS format error");
         const searchResult = this.state.searchValue;
         const domain = keydomain[keydomain.length - 2].split(".");
@@ -70,7 +70,7 @@ class App extends Component {
 
         this.setState({isKeyDown: true, isOpenSearch: false, isAboutOpen: false,});
         getEntries(seachdamain).then(entries => {
-            getOwner(`${seachdamain}.wan`).then(owner => {
+            getOwner(this.state.searchValue.toLowerCase()).then(owner => {
                 let t = this.state.idxRes+=1;
                 let eObj = entries;
                 eObj['owner'] = owner;
